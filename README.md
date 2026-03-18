@@ -1,34 +1,43 @@
-﻿# SauceDemo Parallel DDT Framework 🚀
-A professional-grade Selenium WebDriver framework built with **Java** and **TestNG**. This project demonstrates advanced automation techniques, including handling asynchronous React states and executing high-concurrency test suites.
-## ✨ Key Engineering Highlights
-* **Data-Driven Testing (DDT):** Utilizes TestNG `@DataProvider` to inject multiple user personas (`standard_user`, `problem_user`) into a single test logic.
-* **Parallel Execution:** Configured to run browser instances in parallel using `ThreadLocal` WebDriver, reducing total execution time by over 50%.
-* **React State Bypass:** Implements **Native Property Setter Injection** via JavaScript to force data entry into the DOM, bypassing modern front-end state-locking.
-* **Defect Isolation:** Successfully identifies a functional "Last Name" input bug and an unresponsive "Continue" button in the `problem_user` profile.
-* **Thread-Safe Reporting:** Integrated **Extent Reports 5** with automated, synchronized screenshot capturing for both PASS and FAIL states.
-## 🛠️ Tech Stack
-* **Language:** Java 17
-* **Automation:** Selenium WebDriver 4.16.1
-* **Test Runner:** TestNG
-* **Build Tool:** Maven
-* **Reporting:** Extent Reports
+﻿# 🚀 SauceDemo Advanced E2E & DDT Framework
+![Selenium CI/CD](https://github.com/AbhishekDhiman07/SauceDemo-DDT-E2E-Framework/actions/workflows/maven.yml/badge.svg)
+[![Live Report](https://img.shields.io/badge/View-Live_Report-brightgreen)](https://AbhishekDhiman07.github.io/SauceDemo-DDT-E2E-Framework/)
+A high-performance Selenium WebDriver framework built with **Java 17** and **TestNG**. This project demonstrates advanced SDET principles, including parallel thread management, CI/CD integration, and deep defect analysis of modern React-based UI states.
 ---
-## 🐞 Bug Report: Functional Regression in 'Problem User' Profile
-**Summary:** The application fails to process the 'Checkout' form when logged in as `problem_user`, despite valid data entry.
-**Steps to Reproduce:**
-1. Login with `problem_user`.
-2. Add "Sauce Labs Backpack" to the cart.
-3. Navigate to the Checkout page.
-4. Enter First Name, Last Name, and Zip Code.
-5. Click 'Continue'.
-**Expected Result:** The application should navigate to `checkout-step-two.html` (Order Overview).
-**Actual Result:** The application ignores the 'Last Name' input field (value remains empty in the DOM state) and the 'Continue' button becomes unresponsive.
-**Automation Proof:**
-The framework isolates this bug by using a **Native Property Setter Bypass**. Even when the value is forced into the input field via JavaScript, the application's internal state remains "Dirty," preventing navigation and triggering a `TimeoutException` in the automation suite.
+## 🌐 How to Access the Live Site
+You can view the latest automation execution results and dashboards directly in your browser:
+👉 **[View Live Extent Report Dashboard](https://AbhishekDhiman07.github.io/SauceDemo-DDT-E2E-Framework/)**
+*This site is automatically updated via GitHub Actions after every code push, providing real-time visibility into the application's health.*
 ---
-## 🚀 How to Run
-1. Clone the repository: `git clone https://github.com/AbhishekDhiman07/SauceDemo-DDT-E2E-Framework.git`
-2. Execute the test suite: `mvn clean test`
-## 📊 Test Status
-* **Standard User:** ✅ **PASS**.
-* **Problem User:** ❌ **FAIL (Verified Bug)**.
+## 🏗️ Core Engineering Highlights
+* **Parallel Execution:** Implements `ThreadLocal<WebDriver>` to ensure thread-safety and high-concurrency execution, reducing test cycle time by ~50%.
+* **Data-Driven Architecture (DDT):** Utilizes TestNG `@DataProvider` to separate test logic from data, allowing seamless validation of multiple user personas (`standard_user`, `problem_user`).
+* **React State Bypass:** Implements **Native JavaScript Property Injection** to handle asynchronous React UI updates where traditional `sendKeys()` fails to trigger internal state changes.
+* **CI/CD Pipeline:** Fully integrated with **GitHub Actions** for automated headless execution on every push to the `main` branch.
+* **Professional Reporting:** Automated **Extent Reports 5** generation with embedded failure screenshots and environmental metadata.
+---
+## 🐞 Bug Report: Functional Regression (Problem User)
+The framework intentionally identifies and documents a critical functional defect within the `problem_user` profile:
+* **Defect:** The "Checkout" form ignores "Last Name" input and the "Continue" button becomes unresponsive.
+* **Analysis:** Using JS Event Dispatchers, we confirmed the issue lies in the React state-binding rather than the DOM element availability.
+* **Status:** **REPRODUCED** (Verified via Automation).
+---
+## 📂 Project Structure
+* `src/test/java/base`: Driver initialization & ThreadLocal management.
+* `src/test/java/pages`: Page Object Model (POM) with JS Injection logic.
+* `src/test/java/testcases`: The E2E test suites and DataProviders.
+* `.github/workflows`: CI/CD YAML configuration for cloud execution.
+* `docs/`: Hosted Extent Reports for GitHub Pages.
+---
+## 🚀 How to Run Locally
+1.  **Clone the repo:**
+    ```bash
+    git clone [https://github.com/AbhishekDhiman07/SauceDemo-DDT-E2E-Framework.git](https://github.com/AbhishekDhiman07/SauceDemo-DDT-E2E-Framework.git)
+    ```
+2.  **Run in Headed Mode:**
+    ```bash
+    mvn clean test
+    ```
+3.  **Run in Headless Mode (CI Simulation):**
+    ```bash
+    mvn clean test -Dheadless=true
+    ```
